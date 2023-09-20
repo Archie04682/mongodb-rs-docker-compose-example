@@ -1,0 +1,6 @@
+sh.addShard("mongo_rs1/mongo_rs1_n1:27017,mongo_rs1_n2:27017")
+sh.addShard("mongo_rs2/mongo_rs2_n1:27017,mongo_rs2_n2:27017")
+sh.enableSharding("social_db")
+db.createCollection("socialDB.reviews")
+db.createCollection("socialDB.movieLikes")
+sh.shardCollection("socialDB.movieLikes", {"movie_id": "hashed"})
