@@ -1,6 +1,6 @@
 # MongoDB Sharded Cluster with Docker Compose
 
-An example of deploying a MongoDB sharded cluster according to the scheme:
+Пример развертывания шардированного кластера MongoDB согласно схеме:
 
 ```mermaid
 flowchart LR
@@ -21,18 +21,17 @@ flowchart LR
     router --> rs2
 ```
 
-Port `27017` has been published from the cluster to connect.
+Из кластера запаблишен порт `27017` для подключения к кластеру. 
 
-## Configuration check
+## Проверить конфигурацию
 
-Check configuration after deployment:
+Чтобы проверить конфигурацию после деплоя:
 
-1. Connect to `mongos` container:
+1. Подключаемся к контейнеру `mongos`:
 ```shell
-docker exec <container id from docker ps command> /bin/bash mongosh --eval "sh.status()"
+docker exec <ID контейнера, который можно посмотреть через docker ps> /bin/bash mongosh --eval "sh.status()"
 ```
-
-2. Example output of command above:
+2. Должны получить примерно такой вывод:
 ```text
 shardingVersion
 { _id: 1, clusterId: ObjectId("650acd33e150e4f5ed054864") }
@@ -119,7 +118,7 @@ databases
 ]
 ```
 
-## Configuration changes
+## Изменение конфигурации
 
-1. To change the database name, you need to change the value in the `MONGO_INITDB_DATABASE` variable of the `mongos` container.
-2. The sharding configuration is described in the file [sharded_cluster_setup.js](./sharded_cluster_setup.js). If you have changed the name of the database, then you need to change it in this file. You can also make changes to sharding, [read more here](https://www.mongodb.com/docs/manual/core/sharding-shard-key/).
+1. Чтобы изменить имя базы данных нужно поменять значение в переменной `MONGO_INITDB_DATABASE` контейнера `mongos`.
+2. Конфигурация шардирования описано в файле [sharded_cluster_setup.js](./sharded_cluster_setup.js). Если изменили имя базы данных, то необходимо его изменить и в этом файле. Так же можно вносить изменения в шардирование, [подробнее тут](https://www.mongodb.com/docs/manual/core/sharding-shard-key/).
